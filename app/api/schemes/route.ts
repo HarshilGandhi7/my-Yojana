@@ -9,7 +9,6 @@ export async function GET(request: Request) {
     const tag = searchParams.get("tag");
     const limit =Number( searchParams.get("limit") || "10");
     const skip = Number(searchParams.get("skip") || "0");
-    console.log(level, state, tag, limit, skip);
     
     if (!level || !state || !tag) {
       return NextResponse.json(
@@ -38,6 +37,7 @@ export async function GET(request: Request) {
       .limit(limit)
       .skip(skip)
       .toArray();
+
     return NextResponse.json({
       schemes: schemes,
       pagination: {

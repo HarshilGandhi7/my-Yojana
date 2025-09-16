@@ -26,7 +26,7 @@ export const WithIntersectionObserver = ({
       return;
     }
 
-    // Disconnect previous observer if it exists
+    // Disconnecting previous observer if it exists
     if (observerRef.current) {
       observerRef.current.disconnect();
     }

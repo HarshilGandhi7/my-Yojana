@@ -42,7 +42,6 @@ export default function ContactPage() {
       setStatus(data.message || "Something went wrong. Please try again.");
     }
   } catch (error) {
-    console.error("Error submitting contact form:", error);
     setStatus("Something went wrong. Please try again.");
   }
 };

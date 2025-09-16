@@ -33,7 +33,7 @@ export default function SchemePage() {
         setHasMore(data.pagination.hasMore);
       }
     } catch (error) {
-      console.error("Error fetching schemes:", error);
+      console.error("Error fetching schemes");
     } finally {
       setLoading(false);
     }
@@ -84,6 +84,7 @@ export default function SchemePage() {
           </p>
         </div>
       </div>
+
       {/* How It Works Section */}
       <div className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold text-center text-[#203a43] mb-10">
@@ -154,18 +155,51 @@ export default function SchemePage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 State
               </label>
-              <select
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9"
-              >
-                <option value="All">All States</option>
-                {states.map((stateOption) => (
-                  <option key={stateOption} value={stateOption}>
-                    {stateOption}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  disabled={level !== "State"}
+                  className={`w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9 
+        ${
+          level !== "State"
+            ? "bg-gray-50 text-gray-500 cursor-not-allowed opacity-75 filter blur-[0.3px]"
+            : "bg-white"
+        }`}
+                >
+                  <option value="All">All States</option>
+                  {states.map((stateOption) => (
+                    <option key={stateOption} value={stateOption}>
+                      {stateOption}
+                    </option>
+                  ))}
+                </select>
+
+                {level !== "State" && (
+                  <div className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {level !== "State" && (
+                <p className="mt-1 text-xs text-gray-500 italic">
+                  State selection only applies to state-level schemes
+                </p>
+              )}
             </div>
 
             {/* Tags */}

@@ -24,7 +24,6 @@ export default function Scheme() {
           setLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching scheme:", error);
         if (isMounted) {
           setLoading(false);
         }

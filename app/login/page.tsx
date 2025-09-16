@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const user = sessionStorage.getItem("userDisplayInfo");
-  if (user) router.push("/");
+  useEffect(() => {
+    const user = sessionStorage.getItem("userDisplayInfo");
+    if (user) router.push("/");
+  }, [router]);
 
   const [formData, setFormData] = useState({
     email: "",

@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function NavbarWrapper() {
+  const router = useRouter();
   const [user, setUser] = useState<{ name?: string; email?: string } | null>(
     null
   );
@@ -13,12 +16,27 @@ export default function NavbarWrapper() {
     if (userInfo) {
       setUser(JSON.parse(userInfo));
     }
-  }, []); // Fixed: removed 'user' from dependency array to prevent infinite loop
+  }, []);
 
-  const handleLogout = () => {
-    setUser(null);
-    sessionStorage.removeItem("userDisplayInfo");
-    window.location.href = "/login";
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        sessionStorage.removeItem("userDisplayInfo");
+
+        router.push("/login");
+      } else {
+        toast.error("Logout failed");
+      }
+    } catch (error) {
+      toast.error("Something went wrong during logout");
+    }
   };
 
   return (
