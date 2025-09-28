@@ -7,9 +7,9 @@ export async function GET(request: Request) {
     const level = searchParams.get("level");
     const state = searchParams.get("state");
     const tag = searchParams.get("tag");
-    const limit =Number( searchParams.get("limit") || "10");
+    const limit = Number(searchParams.get("limit") || "10");
     const skip = Number(searchParams.get("skip") || "0");
-    
+
     if (!level || !state || !tag) {
       return NextResponse.json(
         { error: "Please select all the filter fields" },

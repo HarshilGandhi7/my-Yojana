@@ -45,7 +45,7 @@ export default function Home() {
                 </Link>
                 {user && (
                   <Link
-                    href="/register"
+                    href="/profile"
                     className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-colors shadow-lg"
                   >
                     Create Profile

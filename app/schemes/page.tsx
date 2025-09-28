@@ -10,8 +10,8 @@ export default function SchemePage() {
   const [loading, setLoading] = useState(false);
 
   const [selectedTag, setSelectedTag] = useState("");
-  const [state, setState] = useState("");
-  const [level, setLevel] = useState("");
+  const [state, setState] = useState("All States");
+  const [level, setLevel] = useState("All");
   const [schemes, setSchemes] = useState<SchemeProps[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -19,6 +19,11 @@ export default function SchemePage() {
   const fetchSchemes = async (page: number) => {
     try {
       setLoading(true);
+      // console.log("Fetching schemes with filters:", {
+      //   level,
+      //   state,
+      //   selectedTag,
+      // });
       const response = await fetch(
         `${
           process.env.NEXT_PUBLIC_URL
@@ -138,7 +143,9 @@ export default function SchemePage() {
               </label>
               <select
                 value={level}
-                onChange={(e) => setLevel(e.target.value)}
+                onChange={(e) => {
+                  setLevel(e.target.value);
+                }}
                 className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9"
               >
                 <option value="All">All Levels</option>
@@ -158,7 +165,9 @@ export default function SchemePage() {
               <div className="relative">
                 <select
                   value={state}
-                  onChange={(e) => setState(e.target.value)}
+                  onChange={(e) => {
+                    setState(e.target.value);
+                  }}
                   disabled={level !== "State"}
                   className={`w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9 
         ${
