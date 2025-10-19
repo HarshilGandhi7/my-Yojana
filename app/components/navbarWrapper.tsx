@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import TranslateWidget from "./TranslateWidget";
 
 export default function NavbarWrapper() {
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function NavbarWrapper() {
               MyYojana
             </Link>
           </div>
+          <TranslateWidget />
 
           <div className="hidden md:flex items-center space-x-6">
             <Link
