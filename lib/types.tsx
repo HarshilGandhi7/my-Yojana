@@ -66,3 +66,8 @@ export interface TagsDropdownProps {
   selectedTag?: string;
   onChange?: (value: string) => void;
 }
+
+export interface SchemeIdProps {
+  url: string;
+  searchParams?: URLSearchParams;
+}

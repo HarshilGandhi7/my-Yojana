@@ -1,12 +1,11 @@
 import clientPromise from "@/lib/mongodb";
-import { NextRequest } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  {params}: { params: { id: string } }
-) {
-  const { id } = params;
+export async function GET(params: {
+  url: string;
+  searchParams?: URLSearchParams;
+}) {
   try {
+    const id = params.url.split("/").pop();
     const client = await clientPromise;
     const dbName = process.env.MONGODB_DB;
     const db = client.db(dbName);
