@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    const userInfo = sessionStorage.getItem("userDisplayInfo");
+    setUser(userInfo);
+  });
   const router = useRouter();
-  const user = sessionStorage.getItem("userDisplayInfo");
+
   if (user) router.push("/");
   const [formData, setFormData] = useState({
     name: "",
