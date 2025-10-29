@@ -10,9 +10,14 @@ import {
   features,
 } from "./constants";
 import IconComponent from "./components/iconComponent";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const user = sessionStorage.getItem("userDisplayInfo");
+  const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    const userInfo = sessionStorage.getItem("userDisplayInfo");
+    setUser(userInfo);
+  });
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
