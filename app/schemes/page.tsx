@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TagsDropdown from "../components/tagsDropdown";
 import { levels, states } from "../constants/index";
 import SchemeProps from "@/lib/types";
@@ -8,7 +8,7 @@ import { WithIntersectionObserver } from "../components/WithIntersectionObserver
 
 export default function SchemePage() {
   const [loading, setLoading] = useState(false);
-
+  const [email, setEmail] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
   const [state, setState] = useState("All States");
   const [level, setLevel] = useState("All");
@@ -16,14 +16,19 @@ export default function SchemePage() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
+  useEffect(() => {
+    async function fetchUserDetails() {
+      const user = JSON.parse(
+        sessionStorage.getItem("userDisplayInfo") || "{}"
+      );
+      setEmail(user.email);
+    }
+    fetchUserDetails();
+  },[]);
+
   const fetchSchemes = async (page: number) => {
     try {
       setLoading(true);
-      // console.log("Fetching schemes with filters:", {
-      //   level,
-      //   state,
-      //   selectedTag,
-      // });
       const response = await fetch(
         `${
           process.env.NEXT_PUBLIC_URL
@@ -233,11 +238,13 @@ export default function SchemePage() {
           </div>
         </div>
       </div>
+
       <WithIntersectionObserver
         hasMore={hasMore}
         schemes={schemes}
         fetchSchemes={fetchSchemes}
         loading={loading}
+        email={email}
       />
     </div>
   );

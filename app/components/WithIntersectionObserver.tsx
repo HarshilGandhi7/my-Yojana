@@ -9,6 +9,7 @@ interface WithIntersectionObserverProps {
   schemes: SchemeProps[];
   fetchSchemes: (page: number) => Promise<void>;
   loading: boolean;
+  email:string;
 }
 
 export const WithIntersectionObserver = ({
@@ -16,6 +17,7 @@ export const WithIntersectionObserver = ({
   schemes,
   fetchSchemes,
   loading,
+  email,
 }: WithIntersectionObserverProps) => {
   const [page, setPage] = useState(1);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -67,7 +69,7 @@ export const WithIntersectionObserver = ({
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {schemes.map((scheme, index) => (
-              <SchemeCard key={scheme._id || index} {...scheme} />
+              <SchemeCard key={scheme._id || index} {...scheme} email={email} saved={false}/>
             ))}
           </div>
 

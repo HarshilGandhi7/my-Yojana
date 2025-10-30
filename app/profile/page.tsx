@@ -12,6 +12,7 @@ export default function ProfilePage() {
       const user = JSON.parse(
         sessionStorage.getItem("userDisplayInfo") || "{}"
       );
+
       if (!user || !user.email) {
         window.location.href = "/login";
         const response = await fetch("/api/logout", { method: "POST" });
@@ -20,7 +21,14 @@ export default function ProfilePage() {
         }
         router.push("/login");
       }
-      const res = await fetch(`/api/profile?email=${user.email}`);
+
+      const res = await fetch("/api/profile", {
+        headers: {
+          Authorization: `Bearer ${user.email}`,
+          "Content-Type": "application/json",
+        },
+      });
+
       const data = await res.json();
       if (res.ok) {
         setFormData(data.user);
